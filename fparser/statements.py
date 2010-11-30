@@ -1894,6 +1894,8 @@ class CallStatement(Statement):
         return
     def tofortran(self, isfix=None):
         return self.get_indent_tab(isfix=isfix) + 'CALLSTATEMENT ' + self.expr
+    def analyze(self):
+        pass # silence warning
 
 class CallProtoArgument(Statement):
     """
@@ -1905,6 +1907,8 @@ class CallProtoArgument(Statement):
         return
     def tofortran(self, isfix=None):
         return self.get_indent_tab(isfix=isfix) + 'CALLPROTOARGUMENT ' + self.specs
+    def analyze(self):
+        pass # silence warning
 
 # Non-standard statements
 
