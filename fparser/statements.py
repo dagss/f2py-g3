@@ -1875,6 +1875,15 @@ class Check(Statement):
         return self.get_indent_tab(isfix=isfix) + 'CHECK ( %s ) %s' \
                % (self.expr, self.value)
 
+    def analyze(self):
+        variables = self.parent.a.variables
+        try:
+            v = variables[self.value]
+        except KeyError:
+            self.warning('variable %s not found' % self.value)
+        else:
+            v.update(['check(%s)' % self.expr])
+
 class CallStatement(Statement):
     """
     CALLSTATEMENT <c-expr>
