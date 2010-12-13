@@ -127,6 +127,7 @@ class Variable(object):
         self.bind = []
         self.check = []
         self.init = None
+        self.depend = []
 
         # after calling analyze the following additional attributes are set:
         # .is_array:
@@ -326,6 +327,11 @@ class Variable(object):
                 assert l[0]+l[-1]=='()',`l`
                 self.check.extend(split_comma(l[1:-1].strip(), self.parent.item))
                 continue
+            if lattr.startswith('depend'):
+                l = attr[6:].lstrip()
+                assert l[0]+l[-1]=='()',`l`
+                self.depend.extend(split_comma(l[1:-1].strip(), self.parent.item))
+                continue
             if uattr not in attributes:
                 if uattr not in self.known_attributes:
                     self.parent.warning('unknown attribute %r' % (attr))
@@ -346,6 +352,8 @@ class Variable(object):
             a.append('BIND(%s)' % (', '.join(self.bind)))
         if self.check:
             a.append('CHECK(%s)' % (', '.join(self.check)))
+        if self.depend:
+            a.append('DEPEND(%s)' % (', '.join(self.depend)))
         if a:
             s += ', ' + ', '.join(a) + ' :: '
         s += self.name
