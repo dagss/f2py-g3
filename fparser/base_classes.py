@@ -305,10 +305,12 @@ class Variable(object):
             lattr = attr.lower()
             uattr = attr.upper()
             if lattr.startswith('dimension'):
-                assert self.dimension is None, `self.dimension,attr`
                 l = attr[9:].lstrip()
                 assert l[0]+l[-1]=='()',`l`
+                old_dim = self.dimension
                 self.set_dimension(split_comma(l[1:-1].strip(), self.parent.item))
+                assert old_dim is None or old_dim == self.dimension,(
+                        `self.dimension,attr,old_dim`)
                 continue
             if lattr.startswith('intent'):
                 l = attr[6:].lstrip()
