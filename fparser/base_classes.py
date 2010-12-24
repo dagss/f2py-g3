@@ -227,7 +227,7 @@ class Variable(object):
 
     known_intent_specs = ['IN','OUT','INOUT','CACHE','HIDE', 'COPY',
                           'OVERWRITE', 'CALLBACK', 'AUX', 'C', 'INPLACE',
-                          'OUT=']
+                          'OUT=', 'ALIGNED4', 'ALIGNED8', 'ALIGNED16']
 
     def set_intent(self, intent):
         if self.intent is None:
