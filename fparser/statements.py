@@ -1824,6 +1824,7 @@ class FortranName(Statement):
         return
     def tofortran(self, isfix=None):
         return self.get_indent_tab(isfix=isfix) + 'FORTRANNAME ' + self.value
+    def analyze(self): return
 
 class Threadsafe(Statement):
     """
